@@ -157,7 +157,8 @@ $$("nav button").forEach(b=>b.onclick=()=>go(b.dataset.tab));
 
 // ---------- MAP ----------
 const map=L.map("map").setView([4.2,109.5],6);
-L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png",{subdomains:"abcd",attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',maxZoom:12}).addTo(map);
+const CARTO_KEY="cb1_4qmp_1_04adf6eea4fdfd20309cb292";
+L.tileLayer("https://basemaps.cartocdn.com/rastertiles/dark_nolabels/{z}/{x}/{y}{r}.png?key="+CARTO_KEY,{attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',maxZoom:12}).addTo(map);
 const apLayer=L.layerGroup().addTo(map),acLayer=L.layerGroup().addTo(map);
 function buildMarkers(){
   apLayer.clearLayers();
