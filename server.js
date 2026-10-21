@@ -8,6 +8,7 @@ const PORT = process.env.PORT || 3000;
 const BBOX = 'lamin=0.8&lomin=99.5&lamax=7.4&lomax=119.5'; // Malaysian airspace
 const DATA_FILE = path.join(__dirname, 'data', 'leaderboard.json');
 
+app.set('trust proxy', 1); // Render sits behind a proxy; this makes req.ip the real visitor IP
 app.use(express.json({ limit: '2kb' }));
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -42,7 +43,17 @@ app.get('/api/flights', async (req, res) => {
     const d = await r.json();
     const flights = (d.states || [])
       .filter(s => s[5] != null && s[6] != null && !s[8]) // has position, airborne
-      .map(s => ({ cs: (s[1] || '').trim(), lat: s[6], lng: s[5], hdg: s[10] || 0 }));
+      .map(s => ({
+        icao: s[0],
+        cs: (s[1] || '').trim(),
+        country: s[2],
+        lat: s[6],
+        lng: s[5],
+        alt: s[13] ?? s[7],
+        vel: s[9],
+        hdg: s[10] || 0,
+        vr: s[11],
+      }));
     cache = { t: Date.now(), data: flights };
     res.json({ source: 'opensky', flights });
   } catch (e) {
