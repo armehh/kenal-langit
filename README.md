@@ -117,6 +117,7 @@ Never commit your `.env` file. It is already listed in `.gitignore`.
 | `GET` | `/api/flights` | Aircraft currently airborne over Malaysia. The server caches OpenSky results for 15 seconds. Returns `{ source, flights: [{ cs, lat, lng, hdg }] }`. |
 | `GET` | `/api/leaderboard` | Top 10 scores. |
 | `POST` | `/api/leaderboard` | Submit a score. Body: `{ name, score, level, mode }`, where `level` is `easy`, `med` or `hard` and `mode` is `1` or `2`. |
+| `GET` | `/api/route/:callsign` | Origin and destination for a callsign (via adsbdb), cached for a few minutes. |
 
 The leaderboard validates input, limits each client to one submission every 10 seconds, and rejects impossible scores.
 
@@ -154,6 +155,7 @@ Every push to `main` triggers a new deploy.
 - Basemap © [CARTO](https://carto.com/attributions)
 - Flight data from the [OpenSky Network](https://opensky-network.org/)
 - Map library: [Leaflet](https://leafletjs.com/)
+- Route data from [adsbdb](https://www.adsbdb.com/) (api.adsbdb.com)
 
 ## Author
 
