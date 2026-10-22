@@ -62,6 +62,51 @@ app.get('/api/flights', async (req, res) => {
   }
 });
 
+// ---------- Route lookup: callsign -> origin/destination via adsbdb (free, no key) ----------
+// ADS-B does not carry origin/destination, so we look the callsign up. Results are cached briefly in memory only.
+const routeCache = new Map();            // callsign -> { t, data }
+const ROUTE_TTL = 10 * 60 * 1000;        // found routes
+const ROUTE_TTL_MISS = 5 * 60 * 1000;    // unknown callsigns
+const routeHits = new Map();             // ip -> { t, n } (protects adsbdb's rate limit)
+const routeLimited = ip => {
+  const now = Date.now(), h = routeHits.get(ip);
+  if (routeHits.size > 1000) routeHits.clear();
+  if (!h || now - h.t > 60000) { routeHits.set(ip, { t: now, n: 1 }); return false; }
+  return ++h.n > 30;
+};
+const airportOut = a => a && ({ iata: a.iata_code || null, icao: a.icao_code || null, name: a.name || null, city: a.municipality || null, country: a.country_name || null });
+
+async function lookupRoute(cs) {
+  // Try the callsign as-is, then without leading zeros (MAS073 -> MAS73)
+  for (const c of [...new Set([cs, cs.replace(/^([A-Z]{3})0+(?=\d)/, '$1')])]) {
+    const r = await fetch(`https://api.adsbdb.com/v0/callsign/${encodeURIComponent(c)}`, { signal: AbortSignal.timeout(6000) });
+    if (r.status === 404) continue;
+    if (!r.ok) throw new Error('adsbdb ' + r.status);
+    const fr = (await r.json())?.response?.flightroute;
+    if (fr && fr.origin && fr.destination) {
+      return { callsign: fr.callsign || c, airline: fr.airline?.name || null, origin: airportOut(fr.origin), destination: airportOut(fr.destination) };
+    }
+  }
+  return null;
+}
+
+app.get('/api/route/:callsign', async (req, res) => {
+  const cs = String(req.params.callsign || '').trim().toUpperCase();
+  if (!/^[A-Z0-9]{2,8}$/.test(cs)) return res.status(400).json({ error: 'Invalid callsign' });
+  const hit = routeCache.get(cs);
+  if (hit && Date.now() - hit.t < (hit.data ? ROUTE_TTL : ROUTE_TTL_MISS)) return res.json({ route: hit.data, cached: true });
+  if (routeLimited(req.ip)) return res.status(429).json({ error: 'Too many requests' });
+  try {
+    const data = await lookupRoute(cs);
+    if (routeCache.size > 500) routeCache.delete(routeCache.keys().next().value);
+    routeCache.set(cs, { t: Date.now(), data });
+    res.json({ route: data });
+  } catch (e) {
+    console.warn('Route error:', e.message);
+    res.status(502).json({ error: 'Route lookup failed' });
+  }
+});
+
 // ---------- Leaderboard: JSON file storage ----------
 const LEVELS = ['easy', 'med', 'hard'];
 const readBoard = () => { try { return JSON.parse(fs.readFileSync(DATA_FILE, 'utf8')); } catch { return []; } };
