@@ -123,7 +123,7 @@ app.post('/api/leaderboard', (req, res) => {
   const { name, score, level, mode } = req.body || {};
   const clean = typeof name === 'string' ? name.replace(/[<>]/g, '').trim().slice(0, 20) : '';
   // Max score for a 10-question round with a full streak is well under 300.
-  if (!clean || !Number.isInteger(score) || score < 0 || score > 300 || !LEVELS.includes(level) || ![1, 2].includes(mode)) {
+  if (!clean || !Number.isInteger(score) || score < 0 || score > 300 || !LEVELS.includes(level) || !(Number.isInteger(mode) && mode >= 1 && mode <= 7)) {
     return res.status(400).json({ error: 'Invalid entry' });
   }
   lastPost.set(ip, Date.now());
