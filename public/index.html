@@ -92,19 +92,19 @@ const AIRPORTS=[
 ["LGK","WMKL","Langkawi","i",6.3297,99.7287,"Kedah","Gateway to a UNESCO Global Geopark island.","Pintu masuk ke pulau Geopark Global UNESCO."],
 ["BKI","WBKK","Kota Kinabalu","i",5.9372,116.0510,"Sabah","Gateway to Mount Kinabalu.","Pintu masuk ke Gunung Kinabalu."],
 ["KCH","WBGG","Kuching","i",1.4847,110.3470,"Sarawak","Kuching is nicknamed the Cat City.","Kuching dikenali sebagai Bandar Kucing."],
-["JHB","WMKJ","Johor Bahru","i",1.6413,103.6697,"Johor","Serves Malaysia's southern gateway to Singapore.","Melayani pintu selatan Malaysia ke Singapura."],
+["JHB","WMKJ","Johor Bahru","i",1.6413,103.6697,"Johor","Serves Malaysia's southern gateway to Singapore.","Lapangan terbang untuk pintu masuk selatan Malaysia ke Singapura."],
 ["MYY","WBGR","Miri","d",4.3220,113.9867,"Sarawak","Gateway to Mulu National Park.","Pintu masuk ke Taman Negara Mulu."],
 ["SZB","WMSA","Subang","d",3.1306,101.5490,"Selangor","Former main airport of Kuala Lumpur.","Bekas lapangan terbang utama Kuala Lumpur."],
-["KBR","WMKC","Kota Bharu","d",6.1668,102.2929,"Kelantan","Serves Kelantan, on the east coast.","Melayani Kelantan di pantai timur."],
-["TGG","WMKN","Kuala Terengganu","d",5.3826,103.1030,"Terengganu","Serves Terengganu, known for songket weaving.","Melayani Terengganu, terkenal dengan tenunan songket."],
-["KUA","WMKD","Kuantan","d",3.7754,103.2093,"Pahang","Serves Pahang's east coast.","Melayani pantai timur Pahang."],
-["IPH","WMKI","Ipoh","d",4.5680,101.0920,"Perak","Serves Ipoh, famous for its white coffee.","Melayani Ipoh, terkenal dengan kopi putih."],
-["AOR","WMKA","Alor Setar","d",6.1897,100.3983,"Kedah","Serves Kedah, the rice bowl of Malaysia.","Melayani Kedah, jelapang padi Malaysia."],
-["SBW","WBGS","Sibu","d",2.2616,111.9850,"Sarawak","Serves Sibu on the Rajang River.","Melayani Sibu di Sungai Rajang."],
-["BTU","WBGB","Bintulu","d",3.1239,113.0201,"Sarawak","Serves Bintulu in central Sarawak.","Melayani Bintulu di tengah Sarawak."],
-["LBU","WBKL","Labuan","d",5.3007,115.2500,"W.P. Labuan","Serves the island of Labuan.","Melayani pulau Labuan."],
-["SDK","WBKS","Sandakan","d",5.9009,118.0594,"Sabah","Serves Sandakan, near Sepilok orangutan sanctuary.","Melayani Sandakan, berhampiran Sepilok."],
-["TWU","WBKW","Tawau","d",4.3133,118.1219,"Sabah","Serves Tawau in eastern Sabah.","Melayani Tawau di timur Sabah."]
+["KBR","WMKC","Kota Bharu","d",6.1668,102.2929,"Kelantan","Serves Kelantan, on the east coast.","Lapangan terbang untuk Kelantan, di pantai timur."],
+["TGG","WMKN","Kuala Terengganu","d",5.3826,103.1030,"Terengganu","Serves Terengganu, known for songket weaving.","Lapangan terbang untuk Terengganu, terkenal dengan tenunan songket."],
+["KUA","WMKD","Kuantan","d",3.7754,103.2093,"Pahang","Serves Pahang's east coast.","Lapangan terbang untuk pantai timur Pahang."],
+["IPH","WMKI","Ipoh","d",4.5680,101.0920,"Perak","Serves Ipoh, famous for its white coffee.","Lapangan terbang untuk Ipoh, terkenal dengan kopi putih."],
+["AOR","WMKA","Alor Setar","d",6.1897,100.3983,"Kedah","Serves Kedah, the rice bowl of Malaysia.","Lapangan terbang untuk Kedah, jelapang padi Malaysia."],
+["SBW","WBGS","Sibu","d",2.2616,111.9850,"Sarawak","Serves Sibu on the Rajang River.","Lapangan terbang untuk Sibu, di tepi Sungai Rajang."],
+["BTU","WBGB","Bintulu","d",3.1239,113.0201,"Sarawak","Serves Bintulu in central Sarawak.","Lapangan terbang untuk Bintulu, di tengah Sarawak."],
+["LBU","WBKL","Labuan","d",5.3007,115.2500,"W.P. Labuan","Serves the island of Labuan.","Lapangan terbang untuk pulau Labuan."],
+["SDK","WBKS","Sandakan","d",5.9009,118.0594,"Sabah","Serves Sandakan, near Sepilok orangutan sanctuary.","Lapangan terbang untuk Sandakan, berhampiran Pusat Pemulihan Orang Utan Sepilok."],
+["TWU","WBKW","Tawau","d",4.3133,118.1219,"Sabah","Serves Tawau in eastern Sabah.","Lapangan terbang untuk Tawau, di timur Sabah."]
 ].map(a=>({iata:a[0],icao:a[1],city:a[2],intl:a[3]=="i",lat:a[4],lng:a[5],state:a[6],fact:{en:a[7],ms:a[8]}}));
 // Official names, following the Ministry of Transport Malaysia list: [BM, EN]
 const NAMES={
@@ -130,7 +130,7 @@ TWU:["Lapangan Terbang Tawau","Tawau Airport"]
 const nameOf=(a,l)=>NAMES[a.iata][l=="ms"?0:1];
 const REG=a=>a.state=="Sarawak"?"Sarawak":(a.state=="Sabah"||a.state=="W.P. Labuan")?"Sabah":"Semenanjung";
 const T={
-ms:{map:"Peta",quiz:"Kuiz",learn:"Belajar",board:"Papan Markah",lang:"EN",level:"Tahap",mode:"Mod",easy:"Mudah (utama)",med:"Sederhana (semua)",hard:"Sukar (domestik)",m1:"Kod → Nama",m2:"Nama → Kod",start:"Mula",next:"Seterusnya",score:"Skor",right:"Betul! Teruskan streak awak.",wrong:"Salah. Jawapan: ",done:"Tamat!",acc:"Ketepatan",missed:"Yang salah",none:"Tiada kesilapan, hebat!",again:"Main lagi",review:"Semak dalam Belajar",nick:"Nama anda",send:"Hantar skor",sent:"Skor dihantar!",fail:"Gagal hantar. Backend aktif?",flip:"Klik kad untuk flip. ✓ = tahu, ↻ = ulang.",live:"Live",sample:"Data contoh",plane:"pesawat",empty:"Belum ada skor.",offline:"Papan markah perlukan backend (npm start).",Semenanjung:"Semenanjung Malaysia",Sabah:"Sabah",Sarawak:"Sarawak",known:"dikenali",filewarn:"Buka melalui http://localhost:3000 (jalankan npm start di folder backend), bukan terus dari fail. Jika tidak, peta dan data live tidak berfungsi."},
+ms:{map:"Peta",quiz:"Kuiz",learn:"Belajar",board:"Papan Markah",lang:"EN",level:"Tahap",mode:"Mod",easy:"Mudah (utama)",med:"Sederhana (semua)",hard:"Sukar (domestik)",m1:"Kod → Nama",m2:"Nama → Kod",start:"Mula",next:"Seterusnya",score:"Skor",right:"Betul! Teruskan streak awak.",wrong:"Salah. Jawapan: ",done:"Tamat!",acc:"Ketepatan",missed:"Jawapan yang salah",none:"Tiada kesilapan, hebat!",again:"Main lagi",review:"Semak di tab Belajar",nick:"Nama awak",send:"Hantar skor",sent:"Skor dihantar!",fail:"Skor gagal dihantar. Pastikan pelayan sedang berjalan.",flip:"Ketik kad untuk pusingkan. ✓ = sudah tahu, ↻ = ulang.",live:"Live",sample:"Data contoh",plane:"pesawat",empty:"Belum ada skor.",offline:"Papan markah memerlukan pelayan. Jalankan npm start.",Semenanjung:"Semenanjung Malaysia",Sabah:"Sabah",Sarawak:"Sarawak",known:"sudah tahu",filewarn:"Buka melalui http://localhost:3000 (jalankan npm start di folder backend), bukan terus dari fail. Jika tidak, peta dan data penerbangan langsung tidak akan berfungsi."},
 en:{map:"Map",quiz:"Quiz",learn:"Learn",board:"Leaderboard",lang:"BM",level:"Level",mode:"Mode",easy:"Easy (major)",med:"Medium (all)",hard:"Hard (domestic)",m1:"Code → Name",m2:"Name → Code",start:"Start",next:"Next",score:"Score",right:"Correct! Keep your streak going.",wrong:"Wrong. Answer: ",done:"Finished!",acc:"Accuracy",missed:"Missed",none:"No mistakes, great!",again:"Play again",review:"Review in Learn",nick:"Your name",send:"Submit score",sent:"Score submitted!",fail:"Could not submit. Is the backend running?",flip:"Click a card to flip. ✓ = known, ↻ = review again.",live:"Live",sample:"Sample data",plane:"aircraft",empty:"No scores yet.",offline:"The leaderboard needs the backend (npm start).",Semenanjung:"Peninsular Malaysia",Sabah:"Sabah",Sarawak:"Sarawak",known:"known",filewarn:"Open via http://localhost:3000 (run npm start in the backend folder), not directly from the file. Otherwise the map and live data will not work."}
 };
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
@@ -276,5 +276,6 @@ applyLang();
 <script src="panel.js"></script>
 <script src="route.js"></script>
 <script src="tour.js"></script>
+<script src="videos.js"></script>
 </body>
 </html>

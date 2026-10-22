@@ -1,7 +1,7 @@
 // KenalLangit extras: load AFTER the main script. Wraps existing functions, does not replace the main file.
 (()=>{
 const X={
-ms:{h1:"Kenal langit, ",h2:"hafal lapangan.",sub:"Teroka lapangan terbang Malaysia di peta, kemudian uji sejauh mana awak kenal kod dan namanya.",quiz:"Mula kuiz",explore:"Teroka peta",test:"Uji saya",share:"Kongsi keputusan",copied:"Disalin!",r4:"Kapten",r3:"Pegawai Pertama",r2:"Juruterbang Pelatih",r1:"Penumpang Setia",
+ms:{h1:"Kenal langit, ",h2:"hafal lapangan terbang.",sub:"Teroka lapangan terbang Malaysia di peta, kemudian uji sejauh mana awak kenal kod dan namanya.",quiz:"Mula kuiz",explore:"Teroka peta",test:"Uji saya",share:"Kongsi keputusan",copied:"Disalin!",r4:"Kapten",r3:"Pegawai Pertama",r2:"Juruterbang Pelatih",r1:"Penumpang Setia",
   msg:(r,s,n)=>`Saya dapat pangkat ${r} dalam KenalLangit (${s}/${n} betul). Awak kenal berapa banyak lapangan terbang Malaysia?`},
 en:{h1:"Know the skies, ",h2:"know your airports.",sub:"Explore Malaysia's airports on the map, then test how well you know their codes and names.",quiz:"Start quiz",explore:"Explore map",test:"Test me",share:"Share result",copied:"Copied!",r4:"Captain",r3:"First Officer",r2:"Trainee Pilot",r1:"Loyal Passenger",
   msg:(r,s,n)=>`I earned the rank of ${r} in KenalLangit (${s}/${n} correct). How many Malaysian airports do you know?`}

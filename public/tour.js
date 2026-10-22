@@ -11,11 +11,11 @@ const S=[
 ["m","map",".kp-body","Kad butiran menunjukkan ketinggian, laju dan lapangan terbang terdekat.","The detail card shows altitude, speed and the nearest airport."],
 ["m","map",".kp-tabs","Tab Lapangan Terbang menyenaraikan semua lapangan terbang. Ketik untuk melihatnya di peta.","The Airports tab lists every airport. Tap one to see it on the map."],
 ["w","map",".ap","Titik merah berdenyut ialah lapangan terbang. Kodnya tertera di sebelah.","Pulsing red dots are airports. Their code is shown beside them."],
-["w","map","","Klik penanda untuk lihat nama dan fakta, kemudian tekan Uji saya.","Click a marker for its name and a fact, then press Test me."],
+["w","map","","Ketik penanda untuk lihat nama dan fakta, kemudian tekan Uji saya.","Click a marker for its name and a fact, then press Test me."],
 ["w","quiz","#qbox","Di tab Kuiz, pilih tahap dan mod, kemudian tekan Mula.","In the Quiz tab, pick a level and mode, then press Start."],
 ["w","quiz","#qbox","Jawab betul berturut-turut untuk menaikkan streak dan markah.","Answer correctly in a row to grow your streak and score."],
 ["w","quiz","#qbox","Di hujung kuiz, awak dapat pangkat dan boleh kongsi keputusan.","At the end you earn a rank and can share your result."],
-["b","learn","#lbox","Belum hafal? Tab Belajar ada flashcard. Ketik kad untuk flip.","Not memorised yet? The Learn tab has flashcards. Tap a card to flip it."],
+["b","learn","#lbox","Belum hafal? Tab Belajar ada flashcard. Ketik kad untuk pusingkan.","Not memorised yet? The Learn tab has flashcards. Tap a card to flip it."],
 ["b","learn","#lbox .act","Tekan ✓ bila sudah tahu, atau ↻ untuk ulang kemudian.","Press ✓ when you know it, or ↻ to review later."],
 ["b","board","#bbox","Hantar skor awak ke Papan Markah dan kejar tempat teratas.","Submit your score to the Leaderboard and chase the top spot."],
 ["b","map","","Itu sahaja! Tekan butang ? bila-bila masa untuk ulang panduan.","That's it! Press the ? button any time to replay this guide."]

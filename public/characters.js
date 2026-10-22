@@ -1,18 +1,29 @@
-// KenalLangit characters: rabbit mascot guide. Load AFTER extras.js.
+// KenalLangit characters: Arnab (rabbit mascot) plus the two cabin crew, Pramugara and Pramugari,
+// who take turns guiding the quiz. Load AFTER extras.js.
 // Needs: img/characters/arnab-{berdiri,idea,duduk,jalan}.webp
+//        img/characters/{pramugara,pramugari}-{berdiri,lambai,tunjuk,tiket,bagus}.webp
 (()=>{
 const BASE="img/characters/";
-const POSES=["berdiri","idea","duduk","jalan"];
-POSES.forEach(p=>{new Image().src=`${BASE}arnab-${p}.webp`});
+// width/height are the source image size, so the layout stays stable while an image loads
+const CAST={
+  arnab:{poses:["berdiri","idea","duduk","jalan"],w:310,h:587},
+  pramugara:{poses:["lambai","tunjuk","bagus"],w:332,h:560},
+  pramugari:{poses:["lambai","tunjuk","bagus"],w:321,h:560}
+};
+Object.entries(CAST).forEach(([who,o])=>o.poses.forEach(p=>{new Image().src=`${BASE}${who}-${p}.webp`}));
+// Quiz answers: the three guides take turns, one per question
+const TURN=["arnab","pramugari","pramugara"];
 
 const C={
   ms:{tip:"Tip:",setup:"Jom uji pengetahuan awak tentang lapangan terbang Malaysia!",bye:"Terima kasih sudah bermain! Cuba lagi untuk pangkat yang lebih tinggi."},
   en:{tip:"Tip:",setup:"Let's test what you know about Malaysian airports!",bye:"Thanks for playing! Try again for a higher rank."}
 };
 const c=k=>C[lang][k];
-// width/height keep the layout stable while the image loads (source is 310x587)
-const img=(pose,cls="rabbit")=>`<img class="${cls}" src="${BASE}arnab-${pose}.webp" alt="" width="58" height="110" decoding="async">`;
-const coach=(pose,html)=>`<div class="coach">${img(pose)}<div class="bubble">${html}</div></div>`;
+const img=(pose,cls="rabbit",who="arnab")=>{
+  const o=CAST[who];
+  return `<img class="${cls}" src="${BASE}${who}-${pose}.webp" alt="" width="${Math.round(110*o.w/o.h)}" height="110" decoding="async">`;
+};
+const coach=(who,pose,html)=>`<div class="coach">${img(pose,"rabbit",who)}<div class="bubble">${html}</div></div>`;
 
 const st=document.createElement("style");
 st.textContent=`
@@ -36,20 +47,21 @@ new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{
 // 2. Quiz: welcome on the setup screen, a fact after every answer, goodbye on the result screen
 function paint(){
   if(!Q){
-    if($("#go")&&!$("#qbox .coach"))$("#qbox h2").insertAdjacentHTML("afterend",coach("jalan",c("setup")));
+    if($("#go")&&!$("#qbox .coach"))$("#qbox h2").insertAdjacentHTML("afterend",coach("pramugara","lambai",c("setup")));
     return;
   }
   if(Q.finished){
     if($("#again")&&!$("#qbox .coach")){
       const anchor=$("#qbox .rank")||$("#qbox h2");
-      anchor.insertAdjacentHTML("afterend",coach("duduk",c("bye")));
+      anchor.insertAdjacentHTML("afterend",coach("pramugari","bagus",c("bye")));
     }
     return;
   }
   const fb=$("#fb");
   if(fb&&fb.textContent&&$("#opts .ok")&&!$("#qbox .coach")){
-    const cur=Q.list[Q.i],wrong=!!$("#opts .no");
-    fb.insertAdjacentHTML("afterend",coach(wrong?"idea":"jalan",(wrong?`<b>${c("tip")}</b> `:"")+cur.fact[lang]));
+    const cur=Q.list[Q.i],wrong=!!$("#opts .no"),who=TURN[Q.i%TURN.length];
+    const pose=who=="arnab"?(wrong?"idea":"jalan"):(wrong?"tunjuk":"bagus");
+    fb.insertAdjacentHTML("afterend",coach(who,pose,(wrong?`<b>${c("tip")}</b> `:"")+cur.fact[lang]));
   }
 }
 new MutationObserver(paint).observe($("#qbox"),{childList:true,subtree:true});

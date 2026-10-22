@@ -2,7 +2,7 @@
 // Load AFTER panel.js and BEFORE tour.js.
 (()=>{
 const R={
-  ms:{title:"Laluan",load:"Mencari laluan...",none:"Laluan tidak diketahui untuk penerbangan ini.",err:"Tak dapat memuatkan laluan. Cuba sebentar lagi.",sample:"Data contoh tiada laluan.",note:"Laluan berjadual daripada adsbdb. Ia mungkin tidak sama dengan laluan sebenar."},
+  ms:{title:"Laluan",load:"Mencari laluan...",none:"Laluan tidak diketahui untuk penerbangan ini.",err:"Tidak dapat memuatkan laluan. Cuba sebentar lagi.",sample:"Data contoh tiada laluan.",note:"Laluan berjadual daripada adsbdb. Ia mungkin tidak sama dengan laluan sebenar."},
   en:{title:"Route",load:"Looking up route...",none:"No route is known for this flight.",err:"Could not load the route. Try again shortly.",sample:"Sample data has no route.",note:"Scheduled route from adsbdb. It may differ from the actual route."}
 };
 const r=k=>R[lang][k];
